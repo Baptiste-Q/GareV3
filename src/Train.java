@@ -74,6 +74,10 @@ public class Train extends Thread {
         gareArrivee = listeGare.get(1);
     }
 
+    public void majGares(){
+
+    }
+
 
     @Override
     public void run() {
@@ -87,5 +91,13 @@ public class Train extends Thread {
         gareDepart.quitterGare(this);
         System.out.println(""+getNomTrain()+" a quitté la gare.");
 
+        gareArrivee.entrerGare(this);
+        System.out.println(""+getNomTrain()+" : arrive en gare.");
+        try {
+            Thread.sleep(TEMPS_ARRET_TRAIN*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        gareArrivee.quitterGare(this);
     }
 }

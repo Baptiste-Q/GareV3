@@ -36,11 +36,4 @@ public class EspaceVente {
         notifyAll();
     }
 
-
-    synchronized public Train acheterTicket(Voyageurs voyageur) {
-
-        getGuichet(voyageur);
-        Train trainReserve = gareAssocie.getServeurBilletterie().reserverTicket(voyageur);
-        return trainReserve;
-    }
 }

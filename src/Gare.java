@@ -22,11 +22,11 @@ public class Gare {
         listeGare = TestGare.getListeGare();
     }
 
-    synchronized public void entrerGare(Train train){
+    public void entrerGare(Train train){
         espaceQuai.entrerVoie(train);
     }
 
-    synchronized public void quitterGare (Train train){
+    public void quitterGare (Train train){
         espaceQuai.quitterVoie(train);
     }
 

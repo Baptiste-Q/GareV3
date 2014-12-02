@@ -15,7 +15,7 @@ public class ServeurBilletterie {
         listeGare = TestGare.getListeGare();
     }
 
-    synchronized public Train reserverTicket(Voyageurs voyageur) {
+    synchronized public Train reserverTicket(Voyageurs voyageur, Gare gareVoyageur) {
 
         while (true) {
 
@@ -49,17 +49,17 @@ public class ServeurBilletterie {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        gare.getEspaceVente().quitterGuichet();
+                        gareVoyageur.getEspaceVente().quitterGuichet();
                         notifyAll();
                         return train;
                     }
                 }
+            }
 
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

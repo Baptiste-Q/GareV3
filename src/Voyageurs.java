@@ -47,7 +47,9 @@ public class Voyageurs extends Thread {
 
     @Override
     public void run() {
-        Train trainReserve = garePresentationVoyageur.getEspaceVente().acheterTicket(this);
+
+        garePresentationVoyageur.getEspaceVente().getGuichet(this);
+        Train trainReserve = garePresentationVoyageur.getServeurBilletterie().reserverTicket(this,garePresentationVoyageur);
         System.out.println(""+getNom()+" j'ai acheté un billet");
 
         if(trainReserve.getGareDepart().getEspaceQuai().accederAuTrain(this, trainReserve))

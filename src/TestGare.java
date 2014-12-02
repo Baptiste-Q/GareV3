@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TestGare {
 
-    private static final int NB_MAX_TRAIN = 5;
+    private static final int NB_MAX_TRAIN = 7;
     private static final int NB_MAX_VOYAGEURS = 250;
     private static final int NB_GARES = 3;
 
@@ -34,7 +34,13 @@ public class TestGare {
         }
     }
 
-    synchronized public static List<Gare> getListeGare(){
+    public static List<Gare> getListeGare(){
         return listeGare;
     }
+
+     public static ServeurBilletterie getMonServeurBilletterie(){
+        return monServeurBilletterie;
+    }
+
+
 }

@@ -30,8 +30,8 @@ public class EspaceQuai {
         }
         voiesDispo--;
 
-        synchronized (espaceVente){
-            espaceVente.notifyAll();
+        synchronized(TestGare.getMonServeurBilletterie()) {
+            TestGare.getMonServeurBilletterie().notifyAll();
         }
 
         listeTrainQuai.add(train);
