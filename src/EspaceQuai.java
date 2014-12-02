@@ -30,13 +30,13 @@ public class EspaceQuai {
         }
         voiesDispo--;
 
-        /*synchronized (espaceVente){
+        synchronized (espaceVente){
             espaceVente.notifyAll();
-        }*/
+        }
 
         listeTrainQuai.add(train);
         train.setVenteOuverte(true);
-        System.out.println("Train en gare" + train.getNomTrain());
+        System.out.println(train.getNomTrain() + " en gare");
     }
 
     synchronized public void quitterVoie(Train train){

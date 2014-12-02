@@ -8,7 +8,7 @@ import java.util.Iterator;
  */
 public class EspaceVente {
 
-    private final int TEMPS_IMPRESSION_TICKET = 5;
+
     private int nbGuichet = 4;
     private int nbGuichetDispo;
     private Gare gareAssocie;
@@ -35,11 +35,17 @@ public class EspaceVente {
         voyageur.setAUnGuichet(true);
     }
 
+    synchronized void quitterGuichet() {
+
+        nbGuichetDispo++;
+        notifyAll();
+    }
+
 
     synchronized public Train acheterTicket(Voyageurs voyageur) {
 
         getGuichet(voyageur);
-        Train trainReserve = gareAssocie.getServeurBilleterie().reserverTicket();
+        Train trainReserve = gareAssocie.getServeurBilleterie().reserverTicket(voyageur);
         return trainReserve;
     }
 }

@@ -62,6 +62,10 @@ public class Train extends Thread {
         listeVoyageurs.add(voyageur);
     }
 
+    public Gare getGareDepart(){
+        return gareDepart;
+    }
+
     public void generationGares(){
 
         Collections.shuffle(listeGare);

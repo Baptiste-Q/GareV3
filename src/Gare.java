@@ -35,6 +35,10 @@ public class Gare {
         return espaceVente;
     }
 
+    public EspaceQuai getEspaceQuai(){
+        return espaceQuai;
+    }
+
     public ServeurBilleterie getServeurBilleterie(){
         return serveurBilleterie;
     }
