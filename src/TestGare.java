@@ -11,17 +11,17 @@ public class TestGare {
     private static final int NB_MAX_VOYAGEURS = 250;
     private static final int NB_GARES = 3;
 
-    private static ServeurBillet monServeurBillet;
+    private static ServeurBilletterie monServeurBilletterie;
     private static List<Gare> listeGare;
 
     public static void main(String[] args){
 
         listeGare = new ArrayList<Gare>();
-        monServeurBillet = new ServeurBillet();
+        monServeurBilletterie = new ServeurBilletterie();
 
         //Création gare
         for (int i=0; i<NB_GARES; i++){
-            Gare gare = new Gare("Gare n°"+i, monServeurBillet);
+            Gare gare = new Gare("Gare n°"+i, monServeurBilletterie);
             listeGare.add(gare);
         }
 

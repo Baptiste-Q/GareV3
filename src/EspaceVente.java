@@ -40,7 +40,7 @@ public class EspaceVente {
     synchronized public Train acheterTicket(Voyageurs voyageur) {
 
         getGuichet(voyageur);
-        Train trainReserve = gareAssocie.getServeurBillet().reserverTicket(voyageur);
+        Train trainReserve = gareAssocie.getServeurBilletterie().reserverTicket(voyageur);
         return trainReserve;
     }
 }

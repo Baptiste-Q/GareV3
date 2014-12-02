@@ -6,12 +6,12 @@ import java.util.List;
 /**
  * Created by Baptiste on 02/12/2014.
  */
-public class ServeurBillet {
+public class ServeurBilletterie {
 
     private final int TEMPS_IMPRESSION_TICKET = 5;
     private List<Gare> listeGare;
 
-    public ServeurBillet(){
+    public ServeurBilletterie(){
         listeGare = TestGare.getListeGare();
     }
 

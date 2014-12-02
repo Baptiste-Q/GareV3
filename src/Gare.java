@@ -8,15 +8,15 @@ public class Gare {
     private EspaceQuai espaceQuai;
     private EspaceVente espaceVente;
     private String nomGare;
-    private ServeurBillet serveurBillet;
+    private ServeurBilletterie serveurBilletterie;
     private List<Gare> listeGare;
 
 
-    public Gare(String nomGare, ServeurBillet serveurBillet){
+    public Gare(String nomGare, ServeurBilletterie serveurBilletterie){
         this.espaceQuai = new EspaceQuai();
         this.espaceVente = new EspaceVente();
         this.nomGare = nomGare;
-        this.serveurBillet = serveurBillet;
+        this.serveurBilletterie = serveurBilletterie;
         espaceVente.setGareAssocie(this);
 
         listeGare = TestGare.getListeGare();
@@ -38,8 +38,8 @@ public class Gare {
         return espaceQuai;
     }
 
-    public ServeurBillet getServeurBillet(){
-        return serveurBillet;
+    public ServeurBilletterie getServeurBilletterie(){
+        return serveurBilletterie;
     }
 
     public String getNomGare(){
