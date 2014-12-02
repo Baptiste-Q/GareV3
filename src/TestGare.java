@@ -1,35 +1,41 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by 14007427 on 18/11/14.
  */
 
-
 public class TestGare {
 
-    private static final int NB_MAX_TRAIN = 2;
-    private static final int NB_MAX_VOYAGEURS = 20;
+    private static final int NB_MAX_TRAIN = 5;
+    private static final int NB_MAX_VOYAGEURS = 250;
     private static final int NB_GARES = 3;
+
+    private static ServeurBilleterie monServeurBilleterie;
+    private static List<Gare> listeGare;
 
     public static void main(String[] args){
 
-        ServeurBilleterie monServeurBilleterie = new ServeurBilleterie();
+        listeGare = new ArrayList<Gare>();
+        monServeurBilleterie = new ServeurBilleterie();
 
+        //Création gare
         for (int i=0; i<NB_GARES; i++){
-            EspaceVente espaceVente = new EspaceVente();
-            EspaceQuai espaceQuai = new EspaceQuai(espaceVente, monServeurBilleterie);
-            espaceVente.setEspaceQuai(espaceQuai);
-            new Gare("Gare n°"+ i,espaceQuai, monServeurBilleterie);
+            Gare gare = new Gare("Gare n°"+i,monServeurBilleterie);
+            listeGare.add(gare);
         }
 
         for (int i=0; i<NB_MAX_VOYAGEURS; i++){
-            new Voyageurs("Voyageur n°"+(i+1), monServeurBilleterie).start();
+            new Voyageurs("Voyageur n°"+i).start();
         }
 
         for (int i=0; i<NB_MAX_TRAIN; i++){
-            new Train("Train n°"+(i+1),monServeurBilleterie).start();
+            new Train("Train n°"+i).start();
         }
     }
 
+    synchronized public static List<Gare> getListeGare(){
+        return listeGare;
+    }
 }

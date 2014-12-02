@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by 14007427 on 18/11/14.
@@ -11,23 +14,20 @@ public class Train extends Thread {
 
     private int placeDisponible;
     private String nomTrain;
-    private EspaceQuai quai;
     private Boolean venteOuverte;
-    private Collection<Voyageurs> listeVoyageurs;
+    private List<Gare> listeGare;
     private Gare gareDepart;
     private Gare gareArrivee;
-    private ServeurBilleterie serveurBilleterie;
+    private Collection<Voyageurs> listeVoyageurs;
 
-    public Train(String nom, ServeurBilleterie serveurBilleterie) {
+    public Train(String nom) {
         this.nomTrain = nom;
         venteOuverte = false;
         placeDisponible = CAPACITE_TRAIN;
         listeVoyageurs = new ArrayList<Voyageurs>();
-        this.serveurBilleterie = serveurBilleterie;
-        choixAleatoireGares();
-        this.quai = gareDepart.getEspaceQuai();
-        System.out.println(this.getNomTrain()+" : Ma gare de départ est la " + gareDepart.getNomGare());
-        System.out.println(this.getNomTrain()+" : Ma gare d'arrivée est la " + gareArrivee.getNomGare());
+
+        listeGare = TestGare.getListeGare();
+        generationGares();
     }
 
     synchronized public void majNbPlaceDispo() {
@@ -62,37 +62,26 @@ public class Train extends Thread {
         listeVoyageurs.add(voyageur);
     }
 
-    synchronized public ServeurBilleterie getServeurBilleterie(){
-        return serveurBilleterie;
+    public void generationGares(){
+
+        List<Gare> listeGareLocale = listeGare;
+        Collections.shuffle(listeGareLocale);
+
+        gareDepart = listeGareLocale.get(0);
+        gareArrivee = listeGareLocale.get(1);
     }
-
-    synchronized public void choixAleatoireGares(){
-
-        List<Gare> maListeGare = serveurBilleterie.getListeGare();
-
-        Collections.shuffle(maListeGare);
-
-        gareDepart = maListeGare.get(0);
-        gareArrivee = maListeGare.get(1);
-    }
-
-    public Gare getGareDepart(){
-        return gareDepart;
-    }
-
-
 
 
     @Override
     public void run() {
-        quai.entrerVoie(this);
+        gareDepart.entrerGare(this);
         System.out.println(""+getNomTrain()+" : arrive en gare.");
         try {
             Thread.sleep(TEMPS_ARRET_TRAIN*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        quai.quitterVoie(this);
+        gareDepart.quitterGare(this);
         System.out.println(""+getNomTrain()+" a quitté la gare.");
 
     }
