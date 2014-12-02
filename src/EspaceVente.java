@@ -11,10 +11,15 @@ public class EspaceVente {
     private final int TEMPS_IMPRESSION_TICKET = 5;
     private int nbGuichet = 4;
     private int nbGuichetDispo;
+    private Gare gareAssocie;
 
 
     public EspaceVente() {
         nbGuichetDispo = nbGuichet;
+    }
+
+    public void setGareAssocie(Gare gare){
+        gareAssocie = gare;
     }
 
     synchronized void getGuichet(Voyageurs voyageur) {
@@ -30,46 +35,11 @@ public class EspaceVente {
         voyageur.setAUnGuichet(true);
     }
 
-   /* synchronized public Train acheterTicket(Voyageurs voyageur){
+
+    synchronized public Train acheterTicket(Voyageurs voyageur) {
 
         getGuichet(voyageur);
-        ArrayList<Train> listeTrain = espaceQuai.getListeTrainQuai();
-
-        while(true){
-            Collections.shuffle(listeTrain);
-            Iterator<Train> iteratrain = listeTrain.iterator();
-
-            while(iteratrain.hasNext()){
-                Train train = iteratrain.next();
-
-                if (train.getPlaceDisponible() > 0 && train.venteIsOuverte()) {
-
-                    train.majNbPlaceDispo(); // place --
-                    train.addVoyageur(voyageur);
-
-                    voyageur.setTrain(train);
-                    voyageur.setTicketValide(true);
-
-                    System.out.println(train.getNomTrain() + train.getPlaceDisponible());
-
-                    try {
-                        Thread.sleep(TEMPS_IMPRESSION_TICKET);
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    nbGuichetDispo++;
-                    notifyAll();
-                    return train;
-                }
-            }
-
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
-
+        Train trainReserve = gareAssocie.getServeurBilleterie().reserverTicket();
+        return trainReserve;
+    }
 }

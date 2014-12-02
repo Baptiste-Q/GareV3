@@ -64,11 +64,10 @@ public class Train extends Thread {
 
     public void generationGares(){
 
-        List<Gare> listeGareLocale = listeGare;
-        Collections.shuffle(listeGareLocale);
+        Collections.shuffle(listeGare);
 
-        gareDepart = listeGareLocale.get(0);
-        gareArrivee = listeGareLocale.get(1);
+        gareDepart = listeGare.get(0);
+        gareArrivee = listeGare.get(1);
     }
 
 

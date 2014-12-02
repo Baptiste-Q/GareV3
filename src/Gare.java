@@ -18,6 +18,7 @@ public class Gare {
         this.espaceVente = new EspaceVente();
         this.nomGare = nomGare;
         this.serveurBilleterie = serveurBilleterie;
+        espaceVente.setGareAssocie(this);
 
         listeGare = TestGare.getListeGare();
     }
@@ -28,6 +29,14 @@ public class Gare {
 
     synchronized public void quitterGare (Train train){
         espaceQuai.quitterVoie(train);
+    }
+
+    public EspaceVente getEspaceVente(){
+        return espaceVente;
+    }
+
+    public ServeurBilleterie getServeurBilleterie(){
+        return serveurBilleterie;
     }
 
     public String getNomGare(){

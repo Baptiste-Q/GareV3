@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by 14007427 on 18/11/14.
  */
@@ -12,7 +15,7 @@ public class Voyageurs extends Thread {
     public Voyageurs (String nom) {
         this.nom = nom;
         ticketValide = false;
-       // garePresentationVoyageur =
+        garePresentationVoyageur = generationGarePresentation();
         aUnTicket = false;
     }
 
@@ -32,15 +35,26 @@ public class Voyageurs extends Thread {
         ticketValide = bool;
     }
 
+    public Gare generationGarePresentation(){
+
+        List<Gare> listeGareLocale = TestGare.getListeGare();
+        Collections.shuffle(listeGareLocale);
+
+        garePresentationVoyageur = listeGareLocale.get(0);
+
+        return garePresentationVoyageur;
+    }
+
     @Override
-    public void run() {/*
-        Train trainReserve = espaceQuai.getEspaceVente().acheterTicket(this);
+    public void run() {
+        Train trainReserve = garePresentationVoyageur.getEspaceVente().acheterTicket(this);
+
         System.out.println(""+getNom()+" j'ai acheté un billet");
 
         if(espaceQuai.accederAuTrain(this, trainReserve))
             System.out.println(""+getNom()+" je suis monté dans le train.");
         else
-            System.out.println("Le train est déjà parti");*/
+            System.out.println("Le train est déjà parti");
     }
 }
 
