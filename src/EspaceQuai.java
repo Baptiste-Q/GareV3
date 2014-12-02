@@ -10,14 +10,16 @@ public class EspaceQuai {
     private int voiesDispo;
     private int trainsEnQuai;
     private ArrayList<Train> listeTrainQuai;
+    public ServeurBilleterie serveurBilleterie;
 
     public EspaceVente espaceVente;
 
-    EspaceQuai(EspaceVente espaceVente){
+    EspaceQuai(EspaceVente espaceVente, ServeurBilleterie serveurBilleterie){
         voiesDispo = NB_VOIES;
         trainsEnQuai = 0;
         listeTrainQuai = new ArrayList<Train>();
         this.espaceVente = espaceVente;
+        this.serveurBilleterie = serveurBilleterie;
     }
 
     synchronized public void entrerVoie(Train train){
@@ -30,13 +32,13 @@ public class EspaceQuai {
             }
         }
         voiesDispo--;
-        synchronized (espaceVente){
-            espaceVente.notifyAll();
+        synchronized (serveurBilleterie){
+            serveurBilleterie.notifyAll();
         }
 
         listeTrainQuai.add(train);
         train.setVenteOuverte(true);
-        System.out.println("Train en gare" + train.getNomTrain());
+        System.out.println(train.getNomTrain() + " en " + train.getGareDepart().getNomGare() );
     }
 
     synchronized public void quitterVoie(Train train){
@@ -65,8 +67,6 @@ public class EspaceQuai {
         }
         return false;
     }
-
-
 
 
     synchronized public EspaceVente getEspaceVente() {

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Created by 14007427 on 18/11/14.
@@ -15,13 +17,20 @@ public class Train extends Thread {
     private EspaceQuai quai;
     private Boolean venteOuverte;
     private Collection<Voyageurs> listeVoyageurs;
+    private Gare gareDepart;
+    private Gare gareArrivee;
+    private ServeurBilleterie serveurBilleterie;
 
-    public Train(String nom, EspaceQuai quai) {
+    public Train(String nom, ServeurBilleterie serveurBilleterie) {
         this.nomTrain = nom;
-        this.quai = quai;
         venteOuverte = false;
         placeDisponible = CAPACITE_TRAIN;
         listeVoyageurs = new ArrayList<Voyageurs>();
+        this.serveurBilleterie = serveurBilleterie;
+        choixAleatoireGares();
+        this.quai = gareDepart.getEspaceQuai();
+        System.out.println(this.getNomTrain()+" : Ma gare de départ est la " + gareDepart.getNomGare());
+        System.out.println(this.getNomTrain()+" : Ma gare d'arrivée est la " + gareArrivee.getNomGare());
     }
 
     synchronized public void majNbPlaceDispo() {
@@ -54,6 +63,36 @@ public class Train extends Thread {
 
     synchronized public void addVoyageur(Voyageurs voyageur){
         listeVoyageurs.add(voyageur);
+    }
+
+    synchronized public ServeurBilleterie getServeurBilleterie(){
+        return serveurBilleterie;
+    }
+
+    synchronized public void choixAleatoireGares(){
+
+        Collections.shuffle(serveurBilleterie.getListeGare());
+        Iterator<Gare> iteraGare1 = serveurBilleterie.getListeGare().iterator();
+
+        while (iteraGare1.hasNext()) {
+            gareDepart = iteraGare1.next();
+        }
+
+        Collections.shuffle(serveurBilleterie.getListeGare());
+        Iterator<Gare> iteraGare2 = serveurBilleterie.getListeGare().iterator();
+        while (iteraGare2.hasNext()) {
+            gareArrivee = iteraGare2.next();
+        }
+
+        if (gareDepart.equals(gareArrivee)){
+            while (iteraGare2.hasNext()) {
+                gareArrivee = iteraGare2.next();
+            }
+        }
+    }
+
+    public Gare getGareDepart(){
+        return gareDepart;
     }
 
 
