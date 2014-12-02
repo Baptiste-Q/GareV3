@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by 14007427 on 18/11/14.
@@ -71,24 +68,12 @@ public class Train extends Thread {
 
     synchronized public void choixAleatoireGares(){
 
-        Collections.shuffle(serveurBilleterie.getListeGare());
-        Iterator<Gare> iteraGare1 = serveurBilleterie.getListeGare().iterator();
+        List<Gare> maListeGare = serveurBilleterie.getListeGare();
 
-        while (iteraGare1.hasNext()) {
-            gareDepart = iteraGare1.next();
-        }
+        Collections.shuffle(maListeGare);
 
-        Collections.shuffle(serveurBilleterie.getListeGare());
-        Iterator<Gare> iteraGare2 = serveurBilleterie.getListeGare().iterator();
-        while (iteraGare2.hasNext()) {
-            gareArrivee = iteraGare2.next();
-        }
-
-        if (gareDepart.equals(gareArrivee)){
-            while (iteraGare2.hasNext()) {
-                gareArrivee = iteraGare2.next();
-            }
-        }
+        gareDepart = maListeGare.get(0);
+        gareArrivee = maListeGare.get(1);
     }
 
     public Gare getGareDepart(){

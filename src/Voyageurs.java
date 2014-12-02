@@ -10,6 +10,7 @@ public class Voyageurs extends Thread {
     private String nom;
     private Train train;
     private boolean aUnTicket;
+    private Gare garePresentationVoyageur;
     private ServeurBilleterie serveurBilleterie;
 
     public Voyageurs (String nom, ServeurBilleterie serveurBilleterie) {
@@ -17,6 +18,8 @@ public class Voyageurs extends Thread {
         ticketValide = false;
         aUnTicket = false;
         this.serveurBilleterie = serveurBilleterie;
+        choixAleatoireGarePresentation();
+
     }
 
     public void setAUnGuichet(Boolean bool){
@@ -35,9 +38,22 @@ public class Voyageurs extends Thread {
         ticketValide = bool;
     }
 
+    synchronized public void choixAleatoireGarePresentation(){
 
-    @Override
+        Collections.shuffle(serveurBilleterie.getListeGare());
+        Iterator<Gare> iteraGare = serveurBilleterie.getListeGare().iterator();
+
+        while (iteraGare.hasNext()) {
+            garePresentationVoyageur = iteraGare.next();
+        }
+    }
+
+
+
+        @Override
     public void run() {
+
+        garePresentationVoyageur.getEspaceQuai().getEspaceVente().getGuichet(this);
 
         Train trainReserve = serveurBilleterie.acheterTicket(this);
         System.out.println(""+getNom()+" j'ai acheté un billet");

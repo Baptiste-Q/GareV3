@@ -32,9 +32,10 @@ public class EspaceQuai {
             }
         }
         voiesDispo--;
-        synchronized (serveurBilleterie){
+
+        /*synchronized (serveurBilleterie){
             serveurBilleterie.notifyAll();
-        }
+        }*/
 
         listeTrainQuai.add(train);
         train.setVenteOuverte(true);
