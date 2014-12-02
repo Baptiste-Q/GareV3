@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,15 +8,15 @@ public class Gare {
     private EspaceQuai espaceQuai;
     private EspaceVente espaceVente;
     private String nomGare;
-    private ServeurBilleterie serveurBilleterie;
+    private ServeurBillet serveurBillet;
     private List<Gare> listeGare;
 
 
-    public Gare(String nomGare, ServeurBilleterie serveurBilleterie){
+    public Gare(String nomGare, ServeurBillet serveurBillet){
         this.espaceQuai = new EspaceQuai();
         this.espaceVente = new EspaceVente();
         this.nomGare = nomGare;
-        this.serveurBilleterie = serveurBilleterie;
+        this.serveurBillet = serveurBillet;
         espaceVente.setGareAssocie(this);
 
         listeGare = TestGare.getListeGare();
@@ -39,8 +38,8 @@ public class Gare {
         return espaceQuai;
     }
 
-    public ServeurBilleterie getServeurBilleterie(){
-        return serveurBilleterie;
+    public ServeurBillet getServeurBillet(){
+        return serveurBillet;
     }
 
     public String getNomGare(){

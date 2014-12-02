@@ -1,8 +1,3 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
 /**
  * Created by 14007427 on 18/11/14.
  */
@@ -45,7 +40,7 @@ public class EspaceVente {
     synchronized public Train acheterTicket(Voyageurs voyageur) {
 
         getGuichet(voyageur);
-        Train trainReserve = gareAssocie.getServeurBilleterie().reserverTicket(voyageur);
+        Train trainReserve = gareAssocie.getServeurBillet().reserverTicket(voyageur);
         return trainReserve;
     }
 }

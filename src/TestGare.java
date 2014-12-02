@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,17 +11,17 @@ public class TestGare {
     private static final int NB_MAX_VOYAGEURS = 250;
     private static final int NB_GARES = 3;
 
-    private static ServeurBilleterie monServeurBilleterie;
+    private static ServeurBillet monServeurBillet;
     private static List<Gare> listeGare;
 
     public static void main(String[] args){
 
         listeGare = new ArrayList<Gare>();
-        monServeurBilleterie = new ServeurBilleterie();
+        monServeurBillet = new ServeurBillet();
 
         //Création gare
         for (int i=0; i<NB_GARES; i++){
-            Gare gare = new Gare("Gare n°"+i,monServeurBilleterie);
+            Gare gare = new Gare("Gare n°"+i, monServeurBillet);
             listeGare.add(gare);
         }
 
