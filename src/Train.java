@@ -11,6 +11,7 @@ public class Train extends Thread {
     private final static int VITESSE_TRAIN = 100;
     private final static int TEMPS_ARRET_TRAIN = 5;
     private final static int CAPACITE_TRAIN = 25;
+    private final static int TEMPS_TRAJET = 10000;
 
     private int placeDisponible;
     private String nomTrain;
@@ -74,30 +75,33 @@ public class Train extends Thread {
         gareArrivee = listeGare.get(1);
     }
 
-    public void majGares(){
-
-    }
-
 
     @Override
     public void run() {
-        gareDepart.entrerGare(this);
+        gareDepart.getEspaceQuai().entrerVoie(this);
         System.out.println(""+getNomTrain()+" : arrive en gare.");
         try {
             Thread.sleep(TEMPS_ARRET_TRAIN*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        gareDepart.quitterGare(this);
+        gareDepart.getEspaceQuai().quitterVoie(this);
         System.out.println(""+getNomTrain()+" a quitté la gare.");
 
-        gareArrivee.entrerGare(this);
+        try {
+            Thread.sleep(TEMPS_TRAJET);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        gareArrivee.getEspaceQuai().entrerVoie(this);;
         System.out.println(""+getNomTrain()+" : arrive en gare.");
         try {
             Thread.sleep(TEMPS_ARRET_TRAIN*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        gareArrivee.quitterGare(this);
+        gareArrivee.getEspaceQuai().quitterVoie(this);
     }
 }

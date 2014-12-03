@@ -22,14 +22,6 @@ public class Gare {
         listeGare = TestGare.getListeGare();
     }
 
-    public void entrerGare(Train train){
-        espaceQuai.entrerVoie(train);
-    }
-
-    public void quitterGare (Train train){
-        espaceQuai.quitterVoie(train);
-    }
-
     public EspaceVente getEspaceVente(){
         return espaceVente;
     }
